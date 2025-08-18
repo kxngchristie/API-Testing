@@ -1,6 +1,6 @@
 package pojoClasses.models;
 
-public class LabelNames {
+public class LabelColours {
     public String green;
     public String yellow;
     public String orange;

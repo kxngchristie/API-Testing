@@ -1,6 +1,6 @@
 package pojoClasses.models;
 
-public class Root {
+public class Board {
     public String id;
     public String name;
     public String desc;
@@ -12,7 +12,7 @@ public class Root {
     public String url;
     public String shortUrl;
     public Prefs prefs;
-    public LabelNames labelNames;
+    public LabelColours labelColours;
 
     public String getId() {
         return id;
@@ -102,11 +102,11 @@ public class Root {
         this.prefs = prefs;
     }
 
-    public LabelNames getLabelNames() {
-        return labelNames;
+    public LabelColours getLabelNames() {
+        return labelColours;
     }
 
-    public void setLabelNames(LabelNames labelNames) {
-        this.labelNames = labelNames;
+    public void setLabelNames(LabelColours labelColours) {
+        this.labelColours = labelColours;
     }
 }
