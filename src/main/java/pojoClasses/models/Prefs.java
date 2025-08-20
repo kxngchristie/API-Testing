@@ -3,6 +3,13 @@ package pojoClasses.models;
 import java.util.ArrayList;
 
 public class Prefs {
+
+    // Public no-argument constructor
+    public Prefs() {
+        // This is a default constructor required for JSON deserialization
+    }
+
+    // Fields representing the preferences of a board in Trello
     public String permissionLevel;
     public boolean hideVotes;
     public String voting;
