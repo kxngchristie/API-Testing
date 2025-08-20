@@ -1,3 +1,5 @@
+package BaseTest;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeTest;
@@ -16,7 +18,7 @@ public class BaseTest {
         // Load API key and token from a properties file.
         Properties props = new Properties();
         // It's a good practice to store sensitive data outside your code.
-        FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
+        FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
         props.load(fis);
         // Read your API key and token from a properties file for security.
         String trelloBoardsApiTestingKey = props.getProperty("trelloBoardsApiTestingKey");
