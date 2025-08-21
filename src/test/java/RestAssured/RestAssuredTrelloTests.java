@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestAssuredTrelloTests extends BaseTest.BaseTest {
     private static String createdBoardId;
-    private static final String createdBoardName = "My Automated Board";
+    private static final String createdBoardName = "RestAssured Automated Board";
     private static final String createdBoardDesc = "This is a board created by an automated test";
 
     @BeforeClass
@@ -87,7 +87,7 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
 
         System.out.println("\nTest #3 - Updating board (PUT)");
 
-        String updatedBoardName = "Updated Automated Board";
+        String updatedBoardName = "Updated RestAssured Automated Board";
         String updatedBoardDesc = "Testing Testing 123";
         String requestBody = "{\"name\": \"" + updatedBoardName + "\",\"desc\": \"" + updatedBoardDesc + "\"}";
 
