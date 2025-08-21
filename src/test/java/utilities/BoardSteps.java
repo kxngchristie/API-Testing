@@ -2,6 +2,7 @@ package utilities;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.testng.Assert;
 import pojoClasses.models.Board;
 
 import static io.restassured.RestAssured.given;
@@ -40,27 +41,24 @@ public class BoardSteps {
 
     // Step 5: Preparing the expected response
     // This creates a Pojo with the values you expect to receive from the API.
-    public static Board prepareExpectedResponse(String id, String name) {
+    public static Board prepareExpectedResponse(String id, String name, String desc) {
         Board expectedBoard = new Board();
         expectedBoard.setId(id);
         expectedBoard.setName(name);
+        expectedBoard.setDesc(desc);
         return expectedBoard;
     }
 
     // Step 6: Checking the actual response vs. the expected response
     // This uses AssertJ to compare the values of the two Pojo objects.
-    public static void checkActualVsExpectedResponses(Board actual, Board expected) {
-        // Checking that the ID is NOT null and is a valid string, not that it equals the expected value
-        assertThat(actual.getId()).isNotNull().isNotEmpty();
-        // Checking the name, which you do have an expected value for
-        assertThat(actual.getName()).isEqualTo(expected.getName());
-        // Checking that the ID is not equal to null
-        assertThat(actual.getId()).isNotEqualTo(null);
+    public static void checkActualVsExpectedResponses(Board actualBoard, Board expectedBoard) {
+        assertThat(actualBoard.getName()).as("The board name does not match the expected name.").isEqualTo(expectedBoard.getName());
+        assertThat(actualBoard.getId()).as("The board ID does not match the expected id.").isEqualTo(expectedBoard.getId());
     }
 
-    // This uses TestNG to compare the values of two Pojo objects.
-    // public static void checkActualVsExpectedResponses(Board actual, Board expected) {
-        // Assert.assertEquals(actual.getId(), expected.getId(), "Board ID did not match.");
-        // Assert.assertEquals(actual.getName(), expected.getName(), "Board name did not match.");
-    // }
+     // This uses TestNG to compare the values of two Pojo objects.
+     /*public static void checkActualVsExpectedResponses(Board actualBoard, Board expectedBoard) {
+         Assert.assertEquals(actualBoard.getName(), expectedBoard.getName(), "The board name does not match the expected name.");
+         Assert.assertEquals(actualBoard.getId(), expectedBoard.getId(), "The board ID does not match the expected id.");
+     }*/
 }
