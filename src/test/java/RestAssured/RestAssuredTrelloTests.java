@@ -1,6 +1,7 @@
 package RestAssured;
 
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pojoClasses.models.Board;
@@ -11,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestAssuredTrelloTests extends BaseTest.BaseTest {
     private static String createdBoardId;
     private static final String createdBoardName = "My Automated Board";
+    private static final String createdBoardDesc = "This is a board created by an automated test";
 
     @BeforeClass
     public void setupTestClass() {
@@ -19,7 +21,7 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         System.out.println("\nTest #1 - Creating a new board (POST)");
 
         // Preparing the request body as a JSON string.
-        String requestBody = "{\"name\": \"" + createdBoardName + "\"}";
+        String requestBody = "{\"name\": \"" + createdBoardName + "\", \"desc\": \"" + createdBoardDesc + "\"}";
 
         // Sending the POST request.
         Response response = BoardSteps.sendRequest(BoardSteps.buildRequest(requestSpec, requestBody),
@@ -35,17 +37,20 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         Board actualBoard = BoardSteps.prepareActualResponse(response);
 
         // Preparing the expected response.
-        Board expectedBoard = BoardSteps.prepareExpectedResponse(null, createdBoardName); // ID is unknown at this point
+        Board expectedBoard = BoardSteps.prepareExpectedResponse(actualBoard.getId(), createdBoardName, createdBoardDesc);
 
         // Checking actual vs. expected responses using both TestNG and AssertJ.
         BoardSteps.checkActualVsExpectedResponses(actualBoard, expectedBoard);
 
-        // TestNG Assertion
-        // Assert.assertEquals(actualBoard.getName(), expectedBoard.getName(), "The board name does not match the expected name.");
+        // AssertJ Assertions
+        assertThat(actualBoard.getName()).as("The board name does not match the expected name.").isEqualTo(expectedBoard.getName());
+        assertThat(actualBoard.getId()).as("The board ID does not match the expected id.").isEqualTo(expectedBoard.getId());
+        assertThat(actualBoard.getDesc()).as("The board description should not be null or empty.").isNotNull().isNotEmpty();
 
-        // AssertJ Assertion
-        // assertThat(actualBoard.getDesc()).isNotNull();
-        // assertThat(actualBoard.getName()).isNotEmpty();
+        // TestNG Assertions
+        Assert.assertEquals(actualBoard.getName(), expectedBoard.getName(), "The board name does not match the expected name.");
+        Assert.assertEquals(actualBoard.getId(), expectedBoard.getId(), "The board ID does not match the expected id.");
+        Assert.assertNotNull(actualBoard.getDesc(), "The board description should not be null or empty.");
 
         // Saving the board ID for subsequent tests.
         createdBoardId = actualBoard.getId().trim();
@@ -56,13 +61,13 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
     public void testGetBoardById() {
 
         System.out.println("\nTest #2 - Getting board by ID (GET)");
-        System.out.println("\nID being used: '" + createdBoardId + "'");
 
         // Sending the GET request.
         Response response = BoardSteps.sendRequest(BoardSteps.buildRequest(requestSpec, null),
                 "GET", "/boards/" + createdBoardId);
 
-        System.out.println("Status Code: " + response.getStatusCode());
+        System.out.println("\nStatus Code: " + response.getStatusCode());
+        System.out.println("ID being used: " + createdBoardId);
         System.out.println("Response Body: " + response.getBody().asString());
 
         // Checking response validity.
@@ -71,12 +76,13 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         // Preparing the actual response.
         Board actualBoard = BoardSteps.prepareActualResponse(response);
 
-        // Assertions
-        assertThat(actualBoard.getId()).isEqualTo(createdBoardId);
-        assertThat(actualBoard.getName()).isEqualTo(createdBoardName);
+        // AssertJ Assertions
+        assertThat(actualBoard.getId()).as("The board ID does not match the expected ID.").isEqualTo(createdBoardId);
+        assertThat(actualBoard.getName()).as("The board name does not match the expected name.").isEqualTo(createdBoardName);
+        assertThat(actualBoard.getDesc()).as("The board description should not be null or empty.").isNotNull().isNotEmpty();
     }
 
-    @Test(priority = 3, dependsOnMethods = {"testGetBoardById"}, description = "Verifies a board's name can be updated")
+    @Test(priority = 3, description = "Verifies a board's name can be updated")
     public void testUpdateBoard() {
 
         System.out.println("\nTest #3 - Updating board (PUT)");
@@ -92,15 +98,16 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         System.out.println("\nStatus Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody().asString());
 
-        // Check response validity.
+        // Checking response validity.
         BoardSteps.checkResponseIsValid(response, 200);
 
         // Preparing the actual response.
         Board actualBoard = BoardSteps.prepareActualResponse(response);
 
-        // Assertions
-        assertThat(actualBoard.getName()).isEqualTo(updatedBoardName);
-        assertThat(actualBoard.getDesc()).isEqualTo(updatedBoardDesc);
+        // TestNG Assertions
+        Assert.assertEquals(actualBoard.getName(), updatedBoardName, "The board name was not updated correctly.");
+        Assert.assertEquals(actualBoard.getId(), createdBoardId, "The board ID should not change after an update.");
+        Assert.assertNotNull(actualBoard.getDesc(), "The board description was not updated correctly.");
     }
 
     @Test(priority = 4, description = "Verifies a board can be deleted")
@@ -115,14 +122,17 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         System.out.println("\nStatus Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody().asString());
 
-        // Check response validity.
+        // Checking response validity.
         BoardSteps.checkResponseIsValid(response, 200);
 
         // Verifying deletion by trying to get board by id again.
         Response getResponse = BoardSteps.sendRequest(BoardSteps.buildRequest(requestSpec, null),
                 "GET", "/boards/" + createdBoardId);
 
-        // Asserting that the board is no longer found.
+        // Checking that the board is no longer found.
         BoardSteps.checkResponseIsValid(getResponse, 404);
+
+        System.out.println("Status Code: " + getResponse.getStatusCode());
+        System.out.println("Board Not Found Response Body: " + getResponse.getBody().asString());
     }
 }
