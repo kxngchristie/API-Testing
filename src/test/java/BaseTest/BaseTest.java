@@ -15,16 +15,16 @@ public class BaseTest {
 
     @BeforeTest
     public void setup() throws IOException {
-        // Load API key and token from a properties file.
+        // Loading API key and token from a properties file.
         Properties props = new Properties();
-        // It's a good practice to store sensitive data outside your code.
+        // Storing Sensitive Data Outside Code
         FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
         props.load(fis);
-        // Read your API key and token from a properties file for security.
+        // Reading API key and token from a properties file for security.
         String trelloBoardsApiTestingKey = props.getProperty("trelloBoardsApiTestingKey");
         String trelloBoardsApiTestingToken = props.getProperty("trelloBoardsApiTestingToken");
 
-        // Build the RequestSpecification once.
+        // Building the RequestSpecification once.
         requestSpec = new RequestSpecBuilder()
                 .setBaseUri(trelloBoardsApiTestingMainUrl)
                 .addQueryParam("key", trelloBoardsApiTestingKey)
