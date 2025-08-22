@@ -1,0 +1,477 @@
+{
+	"info": {
+		"_postman_id": "2e90b516-9d2a-42df-be6f-ffe974cbdca8",
+		"name": "Trello-Boards-API-Testing",
+		"description": "This Postman collection is designed for a comprehensive test of the Trello Boards API. It contains a full suite of requests to perform **CRUD (Create, Read, Update, Delete)** operations on a Trello board.\n\nThe collection was built to:\n\n- **Create** a new board using a `POST` request.\n    \n- **Retrieve** a specific board by its ID using a `GET` request.\n    \n- **Update** an existing board's details (like its name and description) using a `PUT` request.\n    \n- **Delete** a board using a `DELETE` request.\n    \n\nThis manual testing phase served as a validation and blueprint for subsequent automated API test frameworks created in Java using RestAssured and Retrofit.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47426814",
+		"_collection_link": "https://kchristie-4bdf0634-1203396.postman.co/workspace/f31fe477-6989-4f9e-8878-16094e0e3bdf/collection/47426814-2e90b516-9d2a-42df-be6f-ffe974cbdca8?action=share&source=collection_link&creator=47426814"
+	},
+	"item": [
+		{
+			"name": "Creating a new board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.collectionVariables.set(\"id\", response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "trelloBoardsApiTestingKey",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{vault:trelloBoardsApiTestingKey}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vault:trelloBoardsApiTestingMainUrl}}/boards?name=Test Board %231&key={{vault:trelloBoardsApiTestingKey}}&token={{vault:trelloBoardsApiTestingToken}}",
+					"host": [
+						"{{vault:trelloBoardsApiTestingMainUrl}}"
+					],
+					"path": [
+						"boards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Test Board %231"
+						},
+						{
+							"key": "key",
+							"value": "{{vault:trelloBoardsApiTestingKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{vault:trelloBoardsApiTestingToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting board by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{vault:trelloBoardsApiTestingKey}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "trelloBoardsApiTestingKey",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vault:trelloBoardsApiTestingMainUrl}}/boards/:id?key={{vault:trelloBoardsApiTestingKey}}&token={{vault:trelloBoardsApiTestingToken}}",
+					"host": [
+						"{{vault:trelloBoardsApiTestingMainUrl}}"
+					],
+					"path": [
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{vault:trelloBoardsApiTestingKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{vault:trelloBoardsApiTestingToken}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updating board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.execution.setNextRequest(null);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{vault:trelloBoardsApiTestingKey}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "trelloBoardsApiTestingKey",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{vault:trelloBoardsApiTestingMainUrl}}/boards/:id?key={{vault:trelloBoardsApiTestingKey}}&token={{vault:trelloBoardsApiTestingToken}}&desc={{$randomAdjective}}",
+					"host": [
+						"{{vault:trelloBoardsApiTestingMainUrl}}"
+					],
+					"path": [
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{vault:trelloBoardsApiTestingKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{vault:trelloBoardsApiTestingToken}}"
+						},
+						{
+							"key": "desc",
+							"value": "{{$randomAdjective}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Removing board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{vault:trelloBoardsApiTestingKey}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "trelloBoardsApiTestingKey",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vault:trelloBoardsApiTestingMainUrl}}/boards/:id?key={{vault:trelloBoardsApiTestingKey}}&token={{vault:trelloBoardsApiTestingToken}}",
+					"host": [
+						"{{vault:trelloBoardsApiTestingMainUrl}}"
+					],
+					"path": [
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{vault:trelloBoardsApiTestingKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{vault:trelloBoardsApiTestingToken}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{vault:trelloBoardsApiTestingKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "trelloBoardsApiTestingKey",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
