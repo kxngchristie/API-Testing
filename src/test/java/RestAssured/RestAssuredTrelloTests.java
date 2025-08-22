@@ -17,7 +17,7 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
     @BeforeClass
     public void setupTestClass() {
         // This logic runs ONCE before any test in this class.
-        System.out.println("\nexecuting @Before Class: Creating a new board for all tests.");
+        System.out.println("\nExecuting @BeforeClass: Setting up RestAssured Client, Creating Board First for Setup");
         System.out.println("\nTest #1 - Creating a new board (POST)");
 
         // Preparing the request body as a JSON string.
