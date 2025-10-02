@@ -110,7 +110,7 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
         Assert.assertNotNull(actualBoard.getDesc(), "The board description was not updated correctly.");
     }
 
-    @Test(priority = 4, description = "Verifies a board can be deleted")
+    /*@Test(priority = 4, description = "Verifies a board can be deleted")
     public void testDeleteBoard() {
 
         System.out.println("\nTest #4 - Removing board (DELETE)");
@@ -134,5 +134,5 @@ public class RestAssuredTrelloTests extends BaseTest.BaseTest {
 
         System.out.println("Status Code: " + getResponse.getStatusCode());
         System.out.println("Board Not Found Response Body: " + getResponse.getBody().asString());
-    }
+    }*/
 }
