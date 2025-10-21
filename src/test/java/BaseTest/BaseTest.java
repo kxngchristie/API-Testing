@@ -3,7 +3,6 @@ package BaseTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeTest;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
