@@ -1,6 +1,6 @@
 # API-Testing 🚀
 
-This project demonstrates API testing implementation using different approaches including RestAssured and Retrofit for Trello API integration. Perfect for learning and practicing API testing concepts! ✨
+This project demonstrates API testing implementation using different approaches, including RestAssured and Retrofit for Trello API integration. Perfect for learning and practising API testing concepts! ✨
 
 ## Project Structure 📁
 
@@ -36,7 +36,7 @@ Files:
 
 Purpose:
 - 📋 Define data models for Trello API responses
-- 🔄 JSON serialization/deserialization
+- 🔄 JSON serialisation/deserialisation
 - 🏗️ Object mapping structure
 
 ---
@@ -74,7 +74,7 @@ Purpose:
 2. Testing Concepts 📊
    - ✅ Response Validation
    - 🔐 Authentication
-   - 📋 Data Modeling
+   - 📋 Data Modelling
    - 🔍 Test Assertions
 
 3. Testing Practices 🎯
@@ -105,4 +105,4 @@ trello.api.key=your_api_key
 trello.api.token=your_api_token
 ```
 
-Happy Testing! 🚀
+Happy Coding and Testing! 💻🧪
