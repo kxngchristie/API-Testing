@@ -5,24 +5,25 @@ This project demonstrates API testing implementation using different approaches,
 ## Project Structure 📁
 
 ```
-src/
-├── main/java/
-│   ├── pojoClasses/models/                    # POJO Classes
-│   │   ├── Board.java                         # 📋 Board Model
-│   │   ├── LabelColours.java                  # 🎨 Label Colors Model
-│   │   ├── Prefs.java                         # ⚙️ Preferences Model
-│   │   └── SwitcherView.java                  # 👀 Switcher View Model
-│   └── services/
-│       └── TrelloApiService.java              # 🔌 Trello API Service Interface
-└── test/java/
-    ├── BaseTest/
-    │   └── BaseTest.java                      # 🏗️ Base Test Configuration
-    ├── RestAssured/
-    │   └── RestAssuredTrelloTests.java        # 🧪 RestAssured API Tests
-    ├── Retrofit/
-    │   └── RetrofitTrelloTests.java           # 🧪 Retrofit API Tests
-    └── utilities/
-        └── BoardSteps.java                    # 🔧 Board Testing Utilities
+API-Testing/
+└── src/  
+    ├── main/java/
+    │   ├── pojoClasses/models/                    # POJO Classes
+    │   │   ├── Board.java                         # 📋 Board Model
+    │   │   ├── LabelColours.java                  # 🎨 Label Colors Model
+    │   │   ├── Prefs.java                         # ⚙️ Preferences Model
+    │   │   └── SwitcherView.java                  # 👀 Switcher View Model
+    │   └── services/
+    │       └── TrelloApiService.java              # 🔌 Trello API Service Interface
+    └── test/java/
+        ├── BaseTest/
+        │   └── BaseTest.java                      # 🏗️ Base Test Configuration
+        ├── RestAssured/
+        │   └── RestAssuredTrelloTests.java        # 🧪 RestAssured API Tests
+        ├── Retrofit/
+        │   └── RetrofitTrelloTests.java           # 🧪 Retrofit API Tests
+        └── utilities/
+            └── BoardSteps.java                    # 🔧 Board Testing Utilities
 ```
 
 ## Components 📝
