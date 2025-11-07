@@ -102,8 +102,8 @@ Purpose:
 
 Update `src/main/resources/config.properties` with your Trello credentials:
 ```properties
-trello.api.key=your_api_key
-trello.api.token=your_api_token
+trelloBoardsApiTestingKey=your_api_key
+trelloBoardsApiTestingToken=your_api_token
 ```
 
 Happy Coding and Testing! 💻🧪
